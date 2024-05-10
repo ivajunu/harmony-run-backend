@@ -9,6 +9,7 @@ import high from "./routes/high";
 import medium from "./routes/medium";
 import low from "./routes/low";
 import tips from "./routes/tips";
+import homepage from "./routes/homepage";
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use(high);
 app.use(medium);
 app.use(low);
 app.use(tips);
+app.use(homepage);
 
 // GET anrop test
 app.get("/api", async (req, res) => {
