@@ -7,6 +7,9 @@ router.get("/score", async (req, res) => {
   try {
     const { score } = req.query;
     const { rows } = await client.query(`SELECT * FROM ${score}`);
+    const randomIndex = Math.floor(Math.random() * rows.length);
+    const randomAdvice = rows[randomIndex];
+    console.log("Random workout advice:", randomAdvice);
     console.log("Get workout advice", rows);
     res.send(rows);
   } catch (error) {
