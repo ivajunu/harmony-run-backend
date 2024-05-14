@@ -10,8 +10,7 @@ router.get("/score", async (req, res) => {
     const randomIndex = Math.floor(Math.random() * rows.length);
     const randomAdvice = rows[randomIndex];
     console.log("Random workout advice:", randomAdvice);
-    console.log("Get workout advice", rows);
-    res.send(rows);
+    res.send(randomAdvice);
   } catch (error) {
     console.error("Error handling GET request", error);
     res.status(500).send("Internal Server Error");
