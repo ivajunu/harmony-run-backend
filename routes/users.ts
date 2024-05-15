@@ -8,7 +8,7 @@ router.post("/users", async (req, res) => {
     const { username, name, email, password } = req.body;
 
     await client.query(
-      "INSERT INTO users (user_id, username, name, email, password) VALUES ($1, $2, $3, $4, $5)",
+      "INSERT INTO users (username, name, email, password) VALUES ($1, $2, $3, $4)",
       [username, name, email, password]
     );
 
