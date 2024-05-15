@@ -10,6 +10,7 @@ import medium from "./routes/medium";
 import low from "./routes/low";
 import tips from "./routes/tips";
 import homepage from "./routes/homepage";
+import users from "./routes/users";
 
 dotenv.config();
 
@@ -33,6 +34,7 @@ app.use(medium);
 app.use(low);
 app.use(tips);
 app.use(homepage);
+app.use(users);
 
 // GET anrop test
 app.get("/api", async (req, res) => {
