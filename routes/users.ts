@@ -19,4 +19,19 @@ router.post("/users", async (req, res) => {
   }
 });
 
+router.get("/users", async (req, res) => {
+  const { email } = req.query;
+  try {
+    const { rows } = await client.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
+    console.log("Get user info", rows);
+    res.send(rows);
+  } catch (error) {
+    console.error("Error fetching user", error);
+    res.status(500).json({ error });
+  }
+});
+
 export default router;
