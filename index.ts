@@ -13,6 +13,7 @@ import homepage from "./routes/homepage";
 import users from "./routes/users";
 import savedexercise from "./routes/savedexercise";
 import savedscore from "./routes/savedscore";
+import myexercises from "./routes/myexercises";
 
 dotenv.config();
 
@@ -39,6 +40,7 @@ app.use(homepage);
 app.use(users);
 app.use(savedexercise);
 app.use(savedscore);
+app.use(myexercises);
 
 // GET anrop test
 app.get("/api", async (req, res) => {
