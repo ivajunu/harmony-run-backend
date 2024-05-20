@@ -8,8 +8,8 @@ router.post("/saved_scores", async (req, res) => {
     const { user_id, score } = req.body;
 
     await client.query(
-      "INSERT INTO saved_scores (score, user_id) VALUES ($1, $2)",
-      [score, user_id]
+      "INSERT INTO saved_scores (user_id, score) VALUES ($1, $2)",
+      [user_id, score]
     );
 
     res.status(201).send("Score saved correctly");
