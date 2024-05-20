@@ -14,7 +14,7 @@ router.post("/saved_scores", async (req, res) => {
 
     res.status(201).send("Score saved correctly");
   } catch (error) {
-    console.error("Error creating user:", error);
+    console.error("Error saving score", error);
     res.status(500).send("Internal Server Error");
   }
 });
