@@ -11,6 +11,8 @@ import low from "./routes/low";
 import tips from "./routes/tips";
 import homepage from "./routes/homepage";
 import users from "./routes/users";
+import savedexercise from "./routes/savedexercise";
+import savedscore from "./routes/savedscore";
 
 dotenv.config();
 
@@ -35,6 +37,8 @@ app.use(low);
 app.use(tips);
 app.use(homepage);
 app.use(users);
+app.use(savedexercise);
+app.use(savedscore);
 
 // GET anrop test
 app.get("/api", async (req, res) => {
