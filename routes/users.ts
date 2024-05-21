@@ -69,15 +69,19 @@ router.delete("/users/:id", async (req, res) => {
     );
 
     if (existingUser.length === 0) {
-      return res.status(404).send("User not found");
+      return res.status(404).send("Användare hittades inte");
     }
 
+    // Ta bort relaterade poster från saved_exercises-tabellen
+    await client.query("DELETE FROM saved_exercises WHERE user_id = $1", [id]);
+
+    // Ta bort användaren
     await client.query("DELETE FROM users WHERE id = $1", [id]);
 
-    res.status(200).send("User deleted successfully");
+    res.status(200).send("Användare borttagen framgångsrikt");
   } catch (error) {
-    console.error("Error deleting user:", error);
-    res.status(500).send("Internal Server Error");
+    console.error("Fel vid borttagning av användare:", error);
+    res.status(500).send("Internt serverfel");
   }
 });
 
