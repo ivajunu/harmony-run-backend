@@ -10,7 +10,7 @@ router.post("/saved_exercises", async (req, res) => {
     const savedexerciseString = JSON.stringify(savedexercise);
 
     await client.query(
-      "INSERT INTO saved_exercises (user_id, savedexercise) VALUES ($1, $2)",
+      "INSERT INTO saved_exercises (user_id, savedexercise_json) VALUES ($1, $2)",
       [user_id, savedexerciseString]
     );
 
