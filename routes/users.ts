@@ -48,8 +48,8 @@ router.put("/users", async (req, res) => {
     }
 
     await client.query(
-      "UPDATE users SET username = $1, name = $2, password = $3 WHERE id = $4",
-      [username, name, password, id]
+      "UPDATE users SET username = $1, name = $2, email = $3, password = $4 WHERE id = $5",
+      [username, name, email, password, id]
     );
 
     res.status(200).send("User updated successfully");
