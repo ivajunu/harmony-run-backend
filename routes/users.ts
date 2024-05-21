@@ -59,4 +59,26 @@ router.put("/users", async (req, res) => {
   }
 });
 
+router.delete("/users", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    const { rows: existingUser } = await client.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
+
+    if (existingUser.length === 0) {
+      return res.status(404).send("User not found");
+    }
+
+    await client.query("DELETE FROM users WHERE email = $1", [email]);
+
+    res.status(200).send("User deleted successfully");
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 export default router;
