@@ -38,7 +38,6 @@ router.put("/users", async (req, res) => {
   try {
     const { username, name, email, password } = req.body;
 
-    // Kontrollera om användaren existerar
     const { rows: existingUser } = await client.query(
       "SELECT * FROM users WHERE email = $1",
       [email]
@@ -48,7 +47,6 @@ router.put("/users", async (req, res) => {
       return res.status(404).send("User not found");
     }
 
-    // Uppdatera användaruppgifterna
     await client.query(
       "UPDATE users SET username = $1, name = $2, password = $3 WHERE email = $4",
       [username, name, password, email]
