@@ -26,7 +26,7 @@ router.get("/myexercises", async (req, res) => {
              ) AS savedexercise,
              ss.score
       FROM users u
-      INNER JOIN savedexercises se ON u.id = se.user_id
+      INNER JOIN saved_exercises se ON u.id = se.user_id
       INNER JOIN saved_scores ss ON u.id = ss.user_id
       WHERE u.id = $1
     `,
