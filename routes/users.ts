@@ -75,6 +75,9 @@ router.delete("/users/:id", async (req, res) => {
     // Ta bort relaterade poster från saved_exercises-tabellen
     await client.query("DELETE FROM saved_exercises WHERE user_id = $1", [id]);
 
+    // Ta bort relaterade poster från saved_scores-tabellen
+    await client.query("DELETE FROM saved_scores WHERE user_id = $1", [id]);
+
     // Ta bort användaren
     await client.query("DELETE FROM users WHERE id = $1", [id]);
 
