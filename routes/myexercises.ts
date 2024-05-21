@@ -16,9 +16,17 @@ router.get("/myexercises", async (req, res) => {
     // SQL-fråga för att hämta användare och deras sparade övningar och poäng
     const result = await client.query(
       `
-      SELECT u.id AS user_id, u.username, u.email, se.savedexercise, ss.score
+      SELECT u.id AS user_id, u.username, u.email,
+             JSON_BUILD_OBJECT(
+               'id', se.savedexercise_json ->> 'id',
+               'type', se.savedexercise_json ->> 'type',
+               'duration', se.savedexercise_json ->> 'duration',
+               'intensity', se.savedexercise_json ->> 'intensity',
+               'instruction', se.savedexercise_json ->> 'instruction'
+             ) AS savedexercise,
+             ss.score
       FROM users u
-      INNER JOIN saved_exercises se ON u.id = se.user_id
+      INNER JOIN savedexercises se ON u.id = se.user_id
       INNER JOIN saved_scores ss ON u.id = ss.user_id
       WHERE u.id = $1
     `,
