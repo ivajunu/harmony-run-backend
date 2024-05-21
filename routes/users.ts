@@ -59,9 +59,9 @@ router.put("/users", async (req, res) => {
   }
 });
 
-router.delete("/users", async (req, res) => {
+router.delete("/users/:id", async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
 
     const { rows: existingUser } = await client.query(
       "SELECT * FROM users WHERE id = $1",
