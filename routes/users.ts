@@ -20,12 +20,11 @@ router.post("/users", async (req, res) => {
 });
 
 router.get("/users", async (req, res) => {
-  const { email } = req.query;
+  const { id } = req.query;
   try {
-    const { rows } = await client.query(
-      "SELECT * FROM users WHERE email = $1",
-      [email]
-    );
+    const { rows } = await client.query("SELECT * FROM users WHERE id = $1", [
+      id,
+    ]);
     console.log("Get user info", rows);
     res.send(rows);
   } catch (error) {
@@ -36,11 +35,11 @@ router.get("/users", async (req, res) => {
 
 router.put("/users", async (req, res) => {
   try {
-    const { username, name, email, password } = req.body;
+    const { id, username, name, email, password } = req.body;
 
     const { rows: existingUser } = await client.query(
-      "SELECT * FROM users WHERE email = $1",
-      [email]
+      "SELECT * FROM users WHERE id = $1",
+      [id]
     );
 
     if (existingUser.length === 0) {
@@ -48,8 +47,8 @@ router.put("/users", async (req, res) => {
     }
 
     await client.query(
-      "UPDATE users SET username = $1, name = $2, password = $3 WHERE email = $4",
-      [username, name, password, email]
+      "UPDATE users SET username = $1, name = $2, password = $3 WHERE id = $4",
+      [username, name, password, id]
     );
 
     res.status(200).send("User updated successfully");
@@ -61,18 +60,18 @@ router.put("/users", async (req, res) => {
 
 router.delete("/users", async (req, res) => {
   try {
-    const { email } = req.body;
+    const { id } = req.body;
 
     const { rows: existingUser } = await client.query(
-      "SELECT * FROM users WHERE email = $1",
-      [email]
+      "SELECT * FROM users WHERE id = $1",
+      [id]
     );
 
     if (existingUser.length === 0) {
       return res.status(404).send("User not found");
     }
 
-    await client.query("DELETE FROM users WHERE email = $1", [email]);
+    await client.query("DELETE FROM users WHERE id = $1", [id]);
 
     res.status(200).send("User deleted successfully");
   } catch (error) {
