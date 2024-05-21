@@ -59,7 +59,7 @@ router.put("/users", async (req, res) => {
   }
 });
 
-router.delete("/users", async (req, res) => {
+router.delete("/users:id", async (req, res) => {
   try {
     const { id } = req.body;
 
