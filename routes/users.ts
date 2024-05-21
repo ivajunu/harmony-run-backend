@@ -20,11 +20,12 @@ router.post("/users", async (req, res) => {
 });
 
 router.get("/users", async (req, res) => {
-  const { id } = req.query;
+  const { email } = req.query;
   try {
-    const { rows } = await client.query("SELECT * FROM users WHERE id = $1", [
-      id,
-    ]);
+    const { rows } = await client.query(
+      "SELECT * FROM users WHERE email = $1",
+      [email]
+    );
     console.log("Get user info", rows);
     res.send(rows);
   } catch (error) {
