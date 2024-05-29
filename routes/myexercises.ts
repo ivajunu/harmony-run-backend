@@ -13,7 +13,7 @@ router.get("/myexercises", async (req, res) => {
 
     const result = await client.query(
       `
-      SELECT u.id AS user_id, u.username, u.email,
+      SELECT u.id AS user_id,
              JSON_BUILD_OBJECT(
                'id', se.savedexercise_json ->> 'id',
                'type', se.savedexercise_json ->> 'type',

@@ -72,10 +72,10 @@ router.delete("/users/:id", async (req, res) => {
       return res.status(404).send("Användare hittades inte");
     }
 
-    // Ta bort relaterade poster från saved_exercises-tabellen
+    // Ta bort user från saved_exercises-tabellen
     await client.query("DELETE FROM saved_exercises WHERE user_id = $1", [id]);
 
-    // Ta bort relaterade poster från saved_scores-tabellen
+    // samma sak fast saved_scores-tabellen
     await client.query("DELETE FROM saved_scores WHERE user_id = $1", [id]);
 
     // Ta bort användaren
