@@ -34,9 +34,9 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.put("/users:id", async (req, res) => {
+router.put("/users", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
     const { username, name, email, password } = req.body;
 
     const { rows: existingUser } = await client.query(
