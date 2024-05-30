@@ -34,9 +34,10 @@ router.get("/users", async (req, res) => {
   }
 });
 
-router.put("/users", async (req, res) => {
+router.put("/users:id", async (req, res) => {
   try {
-    const { id, username, name, email, password } = req.body;
+    const { id } = req.params;
+    const { username, name, email, password } = req.body;
 
     const { rows: existingUser } = await client.query(
       "SELECT * FROM users WHERE id = $1",
@@ -72,13 +73,10 @@ router.delete("/users/:id", async (req, res) => {
       return res.status(404).send("Användare hittades inte");
     }
 
-    // Ta bort user från saved_exercises-tabellen
     await client.query("DELETE FROM saved_exercises WHERE user_id = $1", [id]);
 
-    // samma sak fast saved_scores-tabellen
     await client.query("DELETE FROM saved_scores WHERE user_id = $1", [id]);
 
-    // Ta bort användaren
     await client.query("DELETE FROM users WHERE id = $1", [id]);
 
     res.status(200).send("Användare borttagen framgångsrikt");
